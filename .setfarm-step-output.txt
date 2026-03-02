@@ -1,0 +1,7 @@
+STATUS: done
+STITCH_PROJECT_ID: 11122892146474509895
+DEVICE_TYPE: DESKTOP
+SCREENS_GENERATED: 1
+DESIGN_MANIFEST: stitch/DESIGN_MANIFEST.json
+DESIGN_TOKENS: stitch/design-tokens.css
+DESIGN_NOTES: Generated playful Dog vs Cat voting app UI with social-community palette. Main page features two side-by-side cards with dog (warm orange) and cat (purple) vote buttons, vote counters, and refresh button. Sora font for headings, Nunito Sans for body text. Light cream background with white cards, rounded corners, and subtle shadows.
