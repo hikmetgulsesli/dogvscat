@@ -1,7 +1,5 @@
 // Dog vs Cat Voting App
 
-const API_URL = '';
-
 // DOM Elements
 const dogImage = document.getElementById('dog-image');
 const catImage = document.getElementById('cat-image');
@@ -101,7 +99,16 @@ function updateVoteDisplay(data) {
 // Refresh both images
 async function refreshImages() {
     refreshBtn.disabled = true;
+<<<<<<< HEAD
     refreshBtn.textContent = 'Loading...';
+=======
+    refreshBtn.innerHTML = `
+        <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        </svg>
+        Loading...
+    `;
+>>>>>>> cf8bf44 (feat: US-001 - Project Setup + Express Server + Design Tokens)
     
     await Promise.all([
         loadDogImage(),
@@ -109,7 +116,16 @@ async function refreshImages() {
     ]);
     
     refreshBtn.disabled = false;
+<<<<<<< HEAD
     refreshBtn.textContent = 'Load New Images';
+=======
+    refreshBtn.innerHTML = `
+        <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        </svg>
+        Load New Images
+    `;
+>>>>>>> cf8bf44 (feat: US-001 - Project Setup + Express Server + Design Tokens)
 }
 
 // Initialize on load
