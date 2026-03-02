@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog vs Cat 🐕🐈</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🐕 Dog vs Cat 🐈</h1>
+        <p class="subtitle">Vote for your favorite!</p>
+        
+        <div class="cards">
+            <div class="card" id="dog-card">
+                <div class="image-container">
+                    <img id="dog-image" src="" alt="Random Dog" loading="lazy">
+                    <div class="spinner" id="dog-spinner">🐕</div>
+                </div>
+                <button class="vote-btn dog-btn" onclick="vote('dog')">
+                    Vote Dog 🐕
+                </button>
+            </div>
+            
+            <div class="card" id="cat-card">
+                <div class="image-container">
+                    <img id="cat-image" src="" alt="Random Cat" loading="lazy">
+                    <div class="spinner" id="cat-spinner">🐈</div>
+                </div>
+                <button class="vote-btn cat-btn" onclick="vote('cat')">
+                    Vote Cat 🐈
+                </button>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="vote-counter">
+                <span id="dog-votes">0</span> 🐕 vs <span id="cat-votes">0</span> 🐈
+            </div>
+            <div class="total">
+                Total votes: <span id="total-votes">0</span>
+            </div>
+        </div>
+        
+        <button class="refresh-btn" onclick="refreshImages()">
+            🔄 Load New Images
+        </button>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

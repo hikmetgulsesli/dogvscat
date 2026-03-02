@@ -1,0 +1,19 @@
+{
+  "name": "dogvscat",
+  "version": "1.0.0",
+  "description": "Dog vs Cat voting web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build step needed for static app'",
+    "test": "echo 'No tests yet'",
+    "lint": "echo 'No lint configured'"
+  },
+  "keywords": ["dog", "cat", "voting", "fun"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
