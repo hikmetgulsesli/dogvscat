@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "node server.js",
     "build": "echo 'No build step needed for static app'",
-    "test": "echo 'No tests yet'",
+    "test": "node public/app.test.js",
     "lint": "echo 'No lint configured'"
   },
   "keywords": ["dog", "cat", "voting", "fun"],

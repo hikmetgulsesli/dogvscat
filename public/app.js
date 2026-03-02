@@ -101,7 +101,7 @@ function updateVoteDisplay(data) {
 // Refresh both images
 async function refreshImages() {
     refreshBtn.disabled = true;
-    refreshBtn.textContent = '🔄 Loading...';
+    refreshBtn.textContent = 'Loading...';
     
     await Promise.all([
         loadDogImage(),
@@ -109,7 +109,7 @@ async function refreshImages() {
     ]);
     
     refreshBtn.disabled = false;
-    refreshBtn.textContent = '🔄 Load New Images';
+    refreshBtn.textContent = 'Load New Images';
 }
 
 // Initialize on load
