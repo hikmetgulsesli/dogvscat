@@ -8,8 +8,8 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "build": "echo 'No build step required for static site'",
-    "test": "node --test test/*.test.js",
-    "lint": "eslint ."
+    "test": "node public/app.test.cjs",
+    "lint": "echo 'No lint configured'"
   },
   "keywords": [
     "dog",

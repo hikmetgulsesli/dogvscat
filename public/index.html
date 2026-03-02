@@ -12,9 +12,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Design Tokens -->
-    <link rel="stylesheet" href="styles/design-tokens.css">
-    <!-- Main Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,12 +24,11 @@
         <main class="main">
             <div class="cards">
                 <div class="card" id="dog-card">
+                    <div class="card-label">Dog</div>
                     <div class="image-container">
                         <img id="dog-image" src="" alt="Random Dog" loading="lazy">
                         <div class="spinner" id="dog-spinner">
-                            <svg class="spinner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="10"/>
-                            </svg>
+                            <div class="spinner-ring"></div>
                         </div>
                     </div>
                     <button class="vote-btn dog-btn" onclick="vote('dog')">
@@ -41,12 +37,11 @@
                 </div>
                 
                 <div class="card" id="cat-card">
+                    <div class="card-label">Cat</div>
                     <div class="image-container">
                         <img id="cat-image" src="" alt="Random Cat" loading="lazy">
                         <div class="spinner" id="cat-spinner">
-                            <svg class="spinner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="10"/>
-                            </svg>
+                            <div class="spinner-ring"></div>
                         </div>
                     </div>
                     <button class="vote-btn cat-btn" onclick="vote('cat')">
@@ -67,9 +62,6 @@
             </div>
             
             <button class="refresh-btn" onclick="refreshImages()">
-                <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
-                </svg>
                 Load New Images
             </button>
         </main>
