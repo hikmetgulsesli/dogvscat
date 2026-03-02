@@ -1,9 +1,71 @@
-import { describe, it } from 'node:test';
+import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert';
+import { spawn } from 'child_process';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const BASE_URL = 'http://localhost:3526';
 
 describe('Dog vs Cat Server', () => {
+    let server;
+    
+    before(async () => {
+        // Start the server
+        server = spawn('node', [path.join(__dirname, '..', 'server.js')], {
+            stdio: 'pipe',
+            cwd: path.join(__dirname, '..')
+        });
+        
+        // Wait for server to be ready
+        await new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(new Error('Server failed to start within 5 seconds'));
+            }, 5000);
+            
+            server.stdout.on('data', (data) => {
+                const output = data.toString();
+                if (output.includes('Dog vs Cat') || output.includes('running on')) {
+                    clearTimeout(timeout);
+                    resolve();
+                }
+            });
+            
+            server.stderr.on('data', (data) => {
+                // Some servers log to stderr
+                const output = data.toString();
+                if (output.includes('Dog vs Cat') || output.includes('running on')) {
+                    clearTimeout(timeout);
+                    resolve();
+                }
+            });
+            
+            // Also try polling the health endpoint
+            const pollServer = async () => {
+                try {
+                    const response = await fetch(`${BASE_URL}/health`);
+                    if (response.ok) {
+                        clearTimeout(timeout);
+                        resolve();
+                        return;
+                    }
+                } catch (e) {
+                    // Server not ready yet
+                }
+                setTimeout(pollServer, 100);
+            };
+            setTimeout(pollServer, 500);
+        });
+    });
+    
+    after(() => {
+        if (server) {
+            server.kill();
+        }
+    });
+    
     describe('Static Files', () => {
         it('should serve index.html', async () => {
             const response = await fetch(`${BASE_URL}/`);
