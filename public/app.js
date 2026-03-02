@@ -1,6 +1,7 @@
 // Dog vs Cat Voting App
 
 const API_URL = '';
+const STORAGE_KEY = 'dogvscat_votes';
 
 // DOM Elements
 const dogImage = document.getElementById('dog-image');
@@ -11,14 +12,45 @@ const dogVotesEl = document.getElementById('dog-votes');
 const catVotesEl = document.getElementById('cat-votes');
 const totalVotesEl = document.getElementById('total-votes');
 const refreshBtn = document.querySelector('.refresh-btn');
+const dogVoteBtn = document.querySelector('.dog-btn');
+const catVoteBtn = document.querySelector('.cat-btn');
+
+// Vote state
+let votes = {
+    dog: 0,
+    cat: 0
+};
 
 // Load initial data
 async function init() {
+    loadVotesFromStorage();
+    updateVoteDisplay();
     await Promise.all([
         loadDogImage(),
-        loadCatImage(),
-        loadVotes()
+        loadCatImage()
     ]);
+}
+
+// Load votes from localStorage
+function loadVotesFromStorage() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            votes = JSON.parse(stored);
+        }
+    } catch (error) {
+        console.error('Error loading votes from storage:', error);
+        votes = { dog: 0, cat: 0 };
+    }
+}
+
+// Save votes to localStorage
+function saveVotesToStorage() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(votes));
+    } catch (error) {
+        console.error('Error saving votes to storage:', error);
+    }
 }
 
 // Fetch random dog image
@@ -60,42 +92,53 @@ function hideSpinner(type) {
     spinner.classList.remove('active');
 }
 
-// Load votes from server
-async function loadVotes() {
-    try {
-        const response = await fetch('/api/votes');
-        const data = await response.json();
-        updateVoteDisplay(data);
-    } catch (error) {
-        console.error('Error loading votes:', error);
-    }
+// Vote for dog or cat
+function vote(type) {
+    if (type !== 'dog' && type !== 'cat') return;
+    
+    // Increment vote
+    votes[type]++;
+    
+    // Save to localStorage
+    saveVotesToStorage();
+    
+    // Update display with animation
+    updateVoteDisplay();
+    animateCounter(type);
+    
+    // Button animation
+    const btn = type === 'dog' ? dogVoteBtn : catVoteBtn;
+    animateButton(btn);
 }
 
-// Vote for dog or cat
-async function vote(type) {
-    try {
-        const response = await fetch(`/api/vote/${type}`, {
-            method: 'POST'
-        });
-        const data = await response.json();
-        updateVoteDisplay(data);
-        
-        // Visual feedback
-        const btn = type === 'dog' 
-            ? document.querySelector('.dog-btn') 
-            : document.querySelector('.cat-btn');
-        btn.style.transform = 'scale(0.95)';
-        setTimeout(() => btn.style.transform = '', 100);
-    } catch (error) {
-        console.error('Error voting:', error);
-    }
+// Animate counter increment
+function animateCounter(type) {
+    const counterEl = type === 'dog' ? dogVotesEl : catVotesEl;
+    counterEl.style.transform = 'scale(1.3)';
+    counterEl.style.color = type === 'dog' ? 'var(--color-accent-warm)' : 'var(--color-accent-cool)';
+    
+    setTimeout(() => {
+        counterEl.style.transform = 'scale(1)';
+        counterEl.style.color = '';
+    }, 200);
+}
+
+// Animate button press
+function animateButton(btn) {
+    btn.classList.add('voted');
+    btn.style.transform = 'scale(0.95)';
+    
+    setTimeout(() => {
+        btn.style.transform = '';
+        btn.classList.remove('voted');
+    }, 150);
 }
 
 // Update vote display
-function updateVoteDisplay(data) {
-    dogVotesEl.textContent = data.dog;
-    catVotesEl.textContent = data.cat;
-    totalVotesEl.textContent = data.dog + data.cat;
+function updateVoteDisplay() {
+    dogVotesEl.textContent = votes.dog;
+    catVotesEl.textContent = votes.cat;
+    totalVotesEl.textContent = votes.dog + votes.cat;
 }
 
 // Refresh both images
