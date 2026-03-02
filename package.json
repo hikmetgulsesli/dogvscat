@@ -2,18 +2,27 @@
   "name": "dogvscat",
   "version": "1.0.0",
   "description": "Dog vs Cat voting web app",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js",
-    "build": "echo 'No build step needed for static app'",
-    "test": "node public/app.test.js",
-    "lint": "echo 'No lint configured'"
+    "dev": "node --watch server.js",
+    "build": "echo 'No build step required for static site'",
+    "test": "node --test test/*.test.js",
+    "lint": "eslint ."
   },
-  "keywords": ["dog", "cat", "voting", "fun"],
+  "keywords": [
+    "dog",
+    "cat",
+    "voting",
+    "express"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1"
   }
 }

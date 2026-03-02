@@ -3,54 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog vs Cat</title>
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#8b5cf6">
+    <title>Dog vs Cat Voting</title>
+    
+    <!-- Google Fonts: Sora + Nunito Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Design Tokens -->
+    <link rel="stylesheet" href="styles/design-tokens.css">
+    <!-- Main Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Dog vs Cat</h1>
-        <p class="subtitle">Vote for your favorite!</p>
+        <header class="header">
+            <h1 class="title">Dog vs Cat</h1>
+            <p class="subtitle">Vote for your favorite!</p>
+        </header>
         
-        <div class="cards">
-            <div class="card" id="dog-card">
-                <div class="card-label">Dog</div>
-                <div class="image-container">
-                    <img id="dog-image" src="" alt="Random Dog" loading="lazy">
-                    <div class="spinner" id="dog-spinner">
-                        <div class="spinner-ring"></div>
+        <main class="main">
+            <div class="cards">
+                <div class="card" id="dog-card">
+                    <div class="image-container">
+                        <img id="dog-image" src="" alt="Random Dog" loading="lazy">
+                        <div class="spinner" id="dog-spinner">
+                            <svg class="spinner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="10"/>
+                            </svg>
+                        </div>
                     </div>
+                    <button class="vote-btn dog-btn" onclick="vote('dog')">
+                        Vote Dog
+                    </button>
                 </div>
-                <button class="vote-btn dog-btn" onclick="vote('dog')">
-                    Vote Dog
-                </button>
+                
+                <div class="card" id="cat-card">
+                    <div class="image-container">
+                        <img id="cat-image" src="" alt="Random Cat" loading="lazy">
+                        <div class="spinner" id="cat-spinner">
+                            <svg class="spinner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="10"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <button class="vote-btn cat-btn" onclick="vote('cat')">
+                        Vote Cat
+                    </button>
+                </div>
             </div>
             
-            <div class="card" id="cat-card">
-                <div class="card-label">Cat</div>
-                <div class="image-container">
-                    <img id="cat-image" src="" alt="Random Cat" loading="lazy">
-                    <div class="spinner" id="cat-spinner">
-                        <div class="spinner-ring"></div>
-                    </div>
+            <div class="stats">
+                <div class="vote-counter">
+                    <span class="vote-count dog-count" id="dog-votes">0</span>
+                    <span class="vs">vs</span>
+                    <span class="vote-count cat-count" id="cat-votes">0</span>
                 </div>
-                <button class="vote-btn cat-btn" onclick="vote('cat')">
-                    Vote Cat
-                </button>
+                <div class="total">
+                    Total votes: <span id="total-votes">0</span>
+                </div>
             </div>
-        </div>
-        
-        <div class="stats">
-            <div class="vote-counter">
-                <span id="dog-votes">0</span> vs <span id="cat-votes">0</span>
-            </div>
-            <div class="total">
-                Total votes: <span id="total-votes">0</span>
-            </div>
-        </div>
-        
-        <button class="refresh-btn" onclick="refreshImages()">
-            Load New Images
-        </button>
+            
+            <button class="refresh-btn" onclick="refreshImages()">
+                <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                </svg>
+                Load New Images
+            </button>
+        </main>
     </div>
     
     <script src="app.js"></script>
