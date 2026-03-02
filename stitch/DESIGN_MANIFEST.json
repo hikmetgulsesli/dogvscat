@@ -1,0 +1,37 @@
+{
+  "projectId": "11122892146474509895",
+  "title": "dogvscat",
+  "generatedAt": "2026-03-02T19:57:00Z",
+  "deviceType": "DESKTOP",
+  "designSystem": {
+    "aesthetic": "playful",
+    "palette": "social-community",
+    "headingFont": "Sora",
+    "bodyFont": "Nunito Sans",
+    "iconLibrary": "Lucide React (inline SVG for vanilla)"
+  },
+  "screens": [
+    {
+      "id": "main-voting",
+      "title": "Dog vs Cat Voting Main Page",
+      "description": "Main voting page with two cards for dog and cat images, vote buttons, counters, and refresh button",
+      "file": "main.html",
+      "thumbnail": "main.png",
+      "width": 2560,
+      "height": 2048
+    }
+  ],
+  "colors": {
+    "primary": "#ec9213",
+    "secondary": "#8b5cf6",
+    "background": "#fefce8",
+    "card": "#ffffff",
+    "textPrimary": "#1f2937",
+    "textSecondary": "#4b5563"
+  },
+  "fonts": {
+    "heading": "Sora",
+    "body": "Nunito Sans"
+  },
+  "notes": "Playful social-community palette with warm orange primary and purple secondary. Light cream background with subtle pattern. Cards have rounded corners and shadows. Vote buttons use warm colors for dog and cool colors for cat."
+}
