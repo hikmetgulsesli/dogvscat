@@ -30,7 +30,7 @@ function runTests() {
   
   // Test 1: Two cards displayed side by side on desktop
   test('Cards use grid layout with two columns', () => {
-    assert(css.includes('grid-template-columns: 1fr 1fr'), 'Should have 2-column grid');
+    assert(/grid-template-columns:\s*(?:1fr\s+1fr|repeat\(2,\s*1fr\))/.test(css), 'Should have 2-column grid');
   });
   
   // Test 2: Cards stack vertically on mobile
