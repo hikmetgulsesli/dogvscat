@@ -1,5 +1,9 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3526;
@@ -34,6 +38,11 @@ app.post('/api/vote/cat', (req, res) => {
 app.post('/api/votes/reset', (req, res) => {
   votes = { dog: 0, cat: 0 };
   res.json(votes);
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 app.listen(PORT, () => {
