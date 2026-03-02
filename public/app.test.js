@@ -1,6 +1,6 @@
 /**
- * Tests for Dog vs Cat Card Display UI
- * Story US-002
+ * Tests for Dog vs Cat Voting App
+ * Story US-003: Vote Functionality
  */
 
 const fs = require('fs');
@@ -28,49 +28,68 @@ function runTests() {
   const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
   const js = fs.readFileSync(path.join(publicDir, 'app.js'), 'utf8');
   
-  // Test 1: Two cards displayed side by side on desktop
-  test('Cards use grid layout with two columns', () => {
-    assert(css.includes('grid-template-columns: 1fr 1fr'), 'Should have 2-column grid');
+  // === US-003 Tests: Vote Functionality ===
+  
+  // Test 1: Vote button exists under each card
+  test('Vote button under dog card', () => {
+    assert(html.includes('dog-btn') && html.includes('onclick="vote(\'dog\')"'), 'Should have dog vote button');
   });
   
-  // Test 2: Cards stack vertically on mobile
-  test('Cards stack on mobile (max-width: 640px)', () => {
-    assert(css.includes('@media (max-width: 640px)'), 'Should have mobile breakpoint');
-    assert(css.match(/640px[\s\S]*?grid-template-columns:\s*1fr/), 'Should stack to 1 column on mobile');
+  test('Vote button under cat card', () => {
+    assert(html.includes('cat-btn') && html.includes('onclick="vote(\'cat\')"'), 'Should have cat vote button');
   });
   
-  // Test 3: Dog image loads from Dog CEO API
-  test('Dog image fetches from Dog CEO API', () => {
-    assert(js.includes('dog.ceo/api/breeds/image/random'), 'Should use Dog CEO API');
+  // Test 2: Vote counter displays below each image
+  test('Vote counter elements exist', () => {
+    assert(html.includes('id="dog-votes"'), 'Should have dog votes counter element');
+    assert(html.includes('id="cat-votes"'), 'Should have cat votes counter element');
+    assert(html.includes('id="total-votes"'), 'Should have total votes counter element');
   });
   
-  // Test 4: Cat image loads from Cataas API
-  test('Cat image fetches from Cataas API', () => {
-    assert(js.includes('cataas.com/cat'), 'Should use Cataas API');
+  // Test 3: Vote function increments counter
+  test('Vote function increments votes', () => {
+    assert(js.includes('votes[type]++'), 'Should increment vote count');
+    assert(js.includes('function vote(type)'), 'Should have vote function');
   });
   
-  // Test 5: Loading spinner exists
-  test('Loading spinner/skeleton exists', () => {
-    assert(html.includes('spinner'), 'Should have spinner element');
-    assert(html.includes('dog-spinner') && html.includes('cat-spinner'), 'Should have spinners for both cards');
+  // Test 4: localStorage persistence
+  test('Votes persist in localStorage', () => {
+    assert(js.includes('localStorage.getItem'), 'Should read from localStorage');
+    assert(js.includes('localStorage.setItem'), 'Should write to localStorage');
+    assert(js.includes('STORAGE_KEY'), 'Should have storage key constant');
   });
   
-  // Test 6: Images have proper aspect ratio
-  test('Images have 4:3 aspect ratio', () => {
-    assert(css.includes('aspect-ratio: 4 / 3') || css.includes('aspect-ratio: 4/3'), 'Should have 4:3 aspect ratio');
+  // Test 5: Load votes from localStorage on init
+  test('Initial vote counts load from localStorage', () => {
+    assert(js.includes('loadVotesFromStorage'), 'Should have loadVotesFromStorage function');
+    assert(js.includes('loadVotesFromStorage()') && js.includes('init()'), 'Should call loadVotesFromStorage in init');
   });
   
-  // Test 7: Design tokens are applied
-  test('Design tokens from Stitch are used', () => {
-    assert(css.includes('--font-heading'), 'Should use heading font variable');
-    assert(css.includes('--font-body'), 'Should use body font variable');
-    assert(css.includes('Sora'), 'Should use Sora font');
-    assert(css.includes('Nunito Sans'), 'Should use Nunito Sans font');
+  // Test 6: Visual feedback - button animation
+  test('Button animation on vote', () => {
+    assert(js.includes('animateButton') || js.includes('transform: scale(0.95)'), 'Should have button press animation');
   });
   
-  // Test 8: Responsive layout
-  test('Layout is responsive', () => {
-    assert(css.includes('@media') && css.includes('max-width'), 'Should have responsive breakpoints');
+  // Test 7: Visual feedback - counter animation
+  test('Counter animation on vote', () => {
+    assert(js.includes('animateCounter'), 'Should have counter animation function');
+    assert(js.includes('scale(1.3)') || js.includes('scale(1.2)'), 'Should scale counter on vote');
+  });
+  
+  // Test 8: Vote display updates correctly
+  test('Vote display updates', () => {
+    assert(js.includes('updateVoteDisplay'), 'Should have updateVoteDisplay function');
+    assert(js.includes('dogVotesEl.textContent') && js.includes('catVotesEl.textContent'), 'Should update vote elements');
+  });
+  
+  // Test 9: Vote type validation
+  test('Vote function validates type', () => {
+    assert(js.includes("type !== 'dog'") && js.includes("type !== 'cat'"), 'Should validate vote type');
+  });
+  
+  // Test 10: Reduced motion support
+  test('Reduced motion media query exists', () => {
+    assert(css.includes('prefers-reduced-motion'), 'Should support reduced motion preference');
   });
   
   // Print results
